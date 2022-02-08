@@ -1,45 +1,30 @@
-import { useState, useEffect, useCallback } from 'react'
+// import { useState, useEffect, useCallback, useContext } from 'react'
+// import Loader from './Loader'
+// import TodoItem from './TodoItem'
+
+import { useTodoManager } from '../hooks/todo.hook'
+import { TodoContext } from '../context/TodoContext'
 import Loader from './Loader'
 import TodoItem from './TodoItem'
 
 function TodoList() {
-    const [todoList, setTodoList] = useState([])
-    const [loading, setLoading] = useState(true)
+    const { loaded, todoList, setTodoList, addTodo, deleteTodo } = useTodoManager()
 
-    const loadTodoListFromServer = useCallback(async () => {
-        let data = []
-        setLoading(true)
-        try {
-            const fetched = await fetch('/api/getList', { method: 'GET' })
-            data = await fetched.json()
-        } catch (error) {}
-        setTodoList(data)
-        setLoading(false)
-    }, [])
-
-    function addTodoItem() {
-        const newTodoList = todoList.slice()
-        newTodoList.push({}) // add empty todo
-        setTodoList(newTodoList)
-    }
-
-    useEffect(() => {
-        loadTodoListFromServer()
-    }, [loadTodoListFromServer])
-
-    if (loading) {
+    if (!loaded) {
         return <Loader />
     }
     return (
-        <div className="todo-list">
-            <h1 className="todo-list--header">Todo list</h1>
-            {todoList.map((todoItem, index) => {
-                return <TodoItem todoItem={todoItem} key={index} />
-            })}
-            <button className="todo-list--btn-add" type="button" onClick={addTodoItem}>
-                add
-            </button>
-        </div>
+        <TodoContext.Provider value={{ addTodo, deleteTodo }}>
+            <div className="todo-list">
+                <h1 className="todo-list-header">Todo list</h1>
+                {todoList.map((todoItem) => {
+                    return <TodoItem todoItem={todoItem} key={todoItem.id} />
+                })}
+                <button className="btn-add-todo" type="button" onClick={addTodo}>
+                    add
+                </button>
+            </div>
+        </TodoContext.Provider>
     )
 }
 

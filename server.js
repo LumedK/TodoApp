@@ -8,9 +8,10 @@ server.use(cors())
 
 server.get('/api/getList', (req, res) => {
     const list = [
-        { id: '0', done: false, title: 'first todo' },
-        { id: '1', done: true, title: 'completed todo' },
-        { id: '2', done: false, title: 'just todo' }
+        { id: '0', completed: true, title: 'first todo' },
+        { id: '1', completed: false, title: 'create local storage' },
+        { id: '2', completed: false, title: 'upd local storage' },
+        { id: '3', completed: false, title: 'add some styles' }
     ]
 
     res.json(list)

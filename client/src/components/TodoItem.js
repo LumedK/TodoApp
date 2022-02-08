@@ -1,30 +1,83 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { TodoContext } from '../context/TodoContext'
 
 function TodoItem(props) {
     const { todoItem } = props
-    let [done, setCompleted] = useState(todoItem.done)
+    const todoManager = useContext(TodoContext)
+    const [completed, setCompleted] = useState(todoItem.completed)
+    const [edited, setEdited] = useState(false)
+    const [title, setTitle] = useState(todoItem.title)
 
     function checkboxHandler() {
-        todoItem.done = !todoItem.done
-        setCompleted(todoItem.done)
+        todoItem.completed = !todoItem.completed
+        setCompleted(todoItem.completed)
+    }
+
+    function setClasses(className, modifiers) {
+        const classList = [className]
+        for (const prop in modifiers) {
+            if (modifiers.hasOwnProperty(prop) && modifiers[prop]) {
+                classList.push(className + '--' + prop)
+            }
+        }
+        return classList.join(' ')
+    }
+
+    function deleteTodo() {
+        todoManager.deleteTodo(todoItem.id)
+    }
+
+    function editTodo() {
+        if (edited) setEdited(null)
+        else setEdited(todoItem.id)
+    }
+
+    function blurHandle() {
+        console.log('onBlur')
+    }
+
+    function handleTitleChange(event) {
+        setTitle(event.target.value)
     }
 
     return (
         <div className="todo-item">
-            <div className="todo-item__header">
-                <label>
-                    <div className="checkbox">
+            <div className="item-header-line">
+                <div className="item-header-line__left">
+                    <label className="item-checkbox">
+                        <div className="item-checkbox__input">
+                            <input
+                                id={todoItem.id}
+                                type="checkbox"
+                                disabled={edited}
+                                checked={completed}
+                                onChange={checkboxHandler}
+                            />
+                        </div>
                         <input
-                            id={todoItem.id}
-                            type="checkbox"
-                            checked={done}
-                            onChange={checkboxHandler}
+                            className={setClasses('item-checkbox__title', { completed })}
+                            type="text"
+                            placeholder="Enter the title"
+                            readOnly={!edited}
+                            onChange={handleTitleChange}
+                            value={title}
+                            autoFocus
                         />
+                    </label>
+                </div>
+                <div className="item-header-line__right">
+                    <div className="options">
+                        <button
+                            className={'options__menu ' + setClasses('btn', { pressed: edited })}
+                            onClick={editTodo}
+                        >
+                            edit
+                        </button>
+                        <button className="options__menu" onClick={deleteTodo}>
+                            delete
+                        </button>
                     </div>
-                    <div className={'todo-item__title' + (done ? ' todo-item__title--done' : '')}>
-                        {todoItem.title}
-                    </div>
-                </label>
+                </div>
             </div>
         </div>
     )

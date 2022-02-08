@@ -19,11 +19,28 @@ code {
     border: 1px solid black;
     border-radius: 5px;
 }
-.todo-item__title {
+.item-header-line {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+.item-checkbox {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
 }
-.todo-item__title--done {
+.item-checkbox__input {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.item-checkbox__title--completed {
     text-decoration: line-through;
+}
+.options__menu {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.btn--pressed {
+    background-color: lightskyblue;
 }

@@ -6,7 +6,7 @@
     "scripts": {
         "client": "npm run start --prefix client",
         "client:install": "npm install --prefix client",
-        "server": "node server.js",
+        "server": "nodemon server.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": " <Vladk174@mail.ru>",
@@ -15,6 +15,7 @@
         "express": "^4.17.2"
     },
     "devDependencies": {
-        "cors": "^2.8.5"
+        "cors": "^2.8.5",
+        "nodemon": "^2.0.15"
     }
 }
