@@ -1,82 +1,56 @@
 import { useState, useContext } from 'react'
-import { TodoContext } from '../context/TodoContext'
+import { TodoManagerContext } from '../context/todoManager.context'
+import { setModifiers } from '../common/component.common'
 
 function TodoItem(props) {
-    const { todoItem } = props
-    const todoManager = useContext(TodoContext)
-    const [completed, setCompleted] = useState(todoItem.completed)
-    const [edited, setEdited] = useState(false)
-    const [title, setTitle] = useState(todoItem.title)
+    const { todo } = props
+    const { deleteTodo, updateTodo } = useContext(TodoManagerContext)
+    const [completed, setCompleted] = useState(todo.completed)
+    const [readOnly, setReadOnly] = useState(true)
+    const [title, setTitle] = useState(todo.title)
 
-    function checkboxHandler() {
-        todoItem.completed = !todoItem.completed
-        setCompleted(todoItem.completed)
+    const checkboxHandler = () => {
+        todo.completed = !todo.completed
+        updateTodo(todo)
+        setCompleted(todo.completed)
     }
-
-    function setClasses(className, modifiers) {
-        const classList = [className]
-        for (const prop in modifiers) {
-            if (modifiers.hasOwnProperty(prop) && modifiers[prop]) {
-                classList.push(className + '--' + prop)
-            }
-        }
-        return classList.join(' ')
-    }
-
-    function deleteTodo() {
-        todoManager.deleteTodo(todoItem.id)
-    }
-
-    function editTodo() {
-        if (edited) setEdited(null)
-        else setEdited(todoItem.id)
-    }
-
-    function blurHandle() {
-        console.log('onBlur')
-    }
-
-    function handleTitleChange(event) {
+    const titleOnChangeHandler = (event) => {
         setTitle(event.target.value)
+    }
+    const titleOnBlurHandler = () => {
+        updateTodo(todo)
+    }
+    const deleteHandler = () => {
+        deleteTodo(todo.id)
     }
 
     return (
-        <div className="todo-item">
+        <div className="todo-item" id={todo.id}>
             <div className="item-header-line">
                 <div className="item-header-line__left">
-                    <label className="item-checkbox">
-                        <div className="item-checkbox__input">
-                            <input
-                                id={todoItem.id}
-                                type="checkbox"
-                                disabled={edited}
-                                checked={completed}
-                                onChange={checkboxHandler}
-                            />
-                        </div>
-                        <input
-                            className={setClasses('item-checkbox__title', { completed })}
-                            type="text"
-                            placeholder="Enter the title"
-                            readOnly={!edited}
-                            onChange={handleTitleChange}
-                            value={title}
-                            autoFocus
-                        />
-                    </label>
+                    <input
+                        className="item-checkbox"
+                        type="checkbox"
+                        disabled={readOnly}
+                        checked={completed}
+                        onChange={checkboxHandler}
+                    />
+                    <input
+                        className={setModifiers('item-title', { completed })}
+                        type="text"
+                        placeholder="Enter the title"
+                        readOnly={readOnly}
+                        onChange={titleOnChangeHandler}
+                        onBlur={titleOnBlurHandler}
+                        value={title}
+                        autoFocus
+                    />
+                    <button className="">edit</button>
                 </div>
                 <div className="item-header-line__right">
-                    <div className="options">
-                        <button
-                            className={'options__menu ' + setClasses('btn', { pressed: edited })}
-                            onClick={editTodo}
-                        >
-                            edit
-                        </button>
-                        <button className="options__menu" onClick={deleteTodo}>
-                            delete
-                        </button>
-                    </div>
+                    <button className="options__menu" onClick={deleteHandler}>
+                        delete
+                    </button>
                 </div>
             </div>
         </div>

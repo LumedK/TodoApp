@@ -1,30 +1,26 @@
-// import { useState, useEffect, useCallback, useContext } from 'react'
-// import Loader from './Loader'
-// import TodoItem from './TodoItem'
-
-import { useTodoManager } from '../hooks/todo.hook'
-import { TodoContext } from '../context/TodoContext'
+import { useTodoManager } from '../hooks/todoManager.hook'
+import { TodoManagerContext } from '../context/todoManager.context'
 import Loader from './Loader'
 import TodoItem from './TodoItem'
 
 function TodoList() {
-    const { loaded, todoList, setTodoList, addTodo, deleteTodo } = useTodoManager()
+    const { loaded, todoList, addTodo, deleteTodo, updateTodo } = useTodoManager()
 
     if (!loaded) {
         return <Loader />
     }
     return (
-        <TodoContext.Provider value={{ addTodo, deleteTodo }}>
+        <TodoManagerContext.Provider value={{ addTodo, deleteTodo, updateTodo }}>
             <div className="todo-list">
                 <h1 className="todo-list-header">Todo list</h1>
-                {todoList.map((todoItem) => {
-                    return <TodoItem todoItem={todoItem} key={todoItem.id} />
+                {todoList.map((todo) => {
+                    return <TodoItem todo={todo} key={todo.id} />
                 })}
                 <button className="btn-add-todo" type="button" onClick={addTodo}>
                     add
                 </button>
             </div>
-        </TodoContext.Provider>
+        </TodoManagerContext.Provider>
     )
 }
 
