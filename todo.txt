@@ -1,0 +1,12 @@
+styles
+
+SideBar
+    Dashboard(TodoList)
+    auth
+
+Модели 
+    User 
+    Todo
+
+Регистрация пользователей
+

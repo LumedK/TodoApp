@@ -1,9 +1,11 @@
-import TodoList from './components/TodoList'
+import Sidebar from './components/Sidebar'
+import ContextContainer from './components/ContextContainer'
 
 function App() {
     return (
-        <div>
-            <TodoList />
+        <div className={'app'}>
+            <Sidebar />
+            <ContextContainer />
         </div>
     )
 }
