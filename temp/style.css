@@ -1,0 +1,228 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap');
+
+:root {
+    --bg-color: #ddd;
+    --sb-bg-color: #fff;
+    --sb-hover-color: #f0f0f0;
+    --sb-active-color: #8526d3;
+    --sb-font-color: #000;
+    --sb-font-active-color: #fff;
+    --sb-font-second-color: #424242;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bg-color);
+}
+.app {
+    display: flex;
+}
+
+/* common */
+.left-group {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+.right-group {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+.btn {
+}
+.btn__img {
+}
+
+/* sidebar */
+.sidebar {
+    height: 100vh;
+    width: 250px;
+    background-color: var(--sb-bg-color);
+}
+.sb-menu {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: 100%;
+    overflow-y: scroll;
+}
+.sb-menu::-webkit-scrollbar {
+    display: none;
+}
+.sb-menu-group {
+    margin: 15px 15px 0 15px;
+}
+.sb-menu--header {
+    margin-right: 25px;
+    min-height: 90px;
+    height: 120px;
+}
+.sb-menu--main {
+    flex: 1 0 auto;
+}
+
+.sb-menu-item {
+    display: flex;
+    align-items: center;
+
+    border-radius: 5px;
+    font-size: 20px;
+
+    height: 60px;
+}
+.sb-menu-item--hover:hover {
+    background-color: var(--sb-hover-color);
+}
+.sb-menu-item--active {
+    background-color: var(--sb-active-color);
+    color: var(--sb-font-active-color);
+}
+
+.sb-menu-item__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+    width: 60px;
+    border-radius: 5px;
+}
+.sb-menu-item__title {
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    justify-content: space-around;
+
+    padding-left: 10px;
+    font-size: 14px;
+}
+.icon__img {
+    height: 24px;
+    width: 24px;
+}
+
+.user-ava {
+    background-color: var(--sb-active-color);
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--sb-font-active-color);
+    background-color: var(--sb-active-color);
+    width: 60px;
+}
+.username {
+    font-size: 24px;
+}
+.user-status {
+    font-size: 14px;
+}
+
+/* switcher */
+.switcher {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+.switcher__input {
+    display: none;
+}
+.switcher__title {
+    width: 100%;
+}
+.switcher__slider {
+    display: flex;
+    align-items: center;
+
+    padding: 0 2.5px 0 2.5px;
+    width: 70px;
+    height: 25px;
+    border-radius: 25px;
+
+    background-color: var(--sb-active-color);
+}
+.switcher__slider-ball {
+    width: 20px;
+    height: 20px;
+    border-radius: 25px;
+
+    background-color: var(--sb-bg-color);
+    transition: all 0.5s ease;
+}
+.switcher__input:checked ~ .switcher__slider > .switcher__slider-ball {
+    transform: translateX(100%);
+}
+
+/* container */
+.container {
+    margin: 10px;
+    flex: 1 1 auto;
+
+    display: grid;
+    grid-template-columns: 1fr; /*temp prop*/
+    grid-template-rows: 1fr; /*temp prop*/
+    gap: 10px;
+    grid-auto-flow: dense;
+}
+
+/* todo-board */
+.todo-list {
+    display: flex;
+    flex-flow: column nowrap;
+
+    border-radius: 5px;
+    background-color: var(--sb-bg-color);
+    /* padding: 10px; */
+
+    border: #000 solid 1px;
+}
+.todo-list__header {
+    padding: 10px 10px 10px 10px;
+    background-color: steelblue;
+    height: 50px;
+}
+.todo-list__title {
+    border: none;
+    background: transparent;
+    width: 100%;
+    font-size: 24px;
+}
+.todo-list__item-holder {
+    padding: 5px;
+}
+.todo-item {
+    display: flex;
+    flex-flow: column nowrap;
+    margin-top: 5px;
+    border: #000 solid 1px;
+    border-radius: 5px;
+    padding: 5px;
+}
+.todo-item__header {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.todo-item__title {
+    background: transparent;
+    width: 100%;
+}
+/* temp */
+.box {
+    background-color: #424242;
+}
+
+.box1 {
+    background-color: chartreuse;
+    grid-column: 1/4;
+    /* grid-area: 0 / 1 / 4; */
+    /* grid-area: 1 / 1 / 3 / 3; */
+}
+.box3 {
+    background-color: yellow;
+    grid-column: 1/3;
+}

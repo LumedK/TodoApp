@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link href="style.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="app">
+            <div class="sidebar">
+                <div class="sb-size-button"></div>
+                <div class="sb-menu">
+                    <div class="sb-menu-group sb-menu--header">
+                        <div class="sb-menu-item">
+                            <div class="sb-menu-item__icon user-ava">W</div>
+                            <div class="sb-menu-item__title">
+                                <div class="username">Welcome</div>
+                                <div class="user-status">Local</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sb-menu-group sb-menu--main">
+                        <div class="search-panel"></div>
+                        <div class="sb-menu-item sb-menu-item--hover sb-menu-item--active">
+                            <div class="sb-menu-item__icon">
+                                <img class="icon__img" src="svgs/todo_icon.svg" alt="todo_icon" />
+                            </div>
+                            <div class="sb-menu-item__title">Todo list</div>
+                        </div>
+                        <div class="sb-menu-item sb-menu-item--hover">
+                            <div class="sb-menu-item__icon">
+                                <img
+                                    class="icon__img"
+                                    src="svgs/feature_icon.svg"
+                                    alt="feature_icon"
+                                />
+                            </div>
+                            <div class="sb-menu-item__title">Menu item 1</div>
+                        </div>
+                        <div class="sb-menu-item sb-menu-item--hover">
+                            <div class="sb-menu-item__icon">
+                                <img
+                                    class="icon__img"
+                                    src="svgs/feature_icon.svg"
+                                    alt="feature_icon"
+                                />
+                            </div>
+                            <div class="sb-menu-item__title">Menu item 1</div>
+                        </div>
+                    </div>
+                    <div class="sb-menu-group sb-menu--footer">
+                        <label class="sb-menu-item sb-menu-item--hover switcher__label">
+                            <div class="sb-menu-item__icon">
+                                <img
+                                    class="icon__img"
+                                    src="svgs/dark_mode_icon.svg"
+                                    alt="dark_mode_icon"
+                                />
+                            </div>
+                            <div class="sb-menu-item__title">
+                                <div class="switcher">
+                                    <input class="switcher__input" type="checkbox" />
+                                    <div class="switcher__title">Dark mode</div>
+                                    <div class="switcher__slider">
+                                        <div class="switcher__slider-ball"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                        <div class="sb-menu-item sb-menu-item--hover">
+                            <div class="sb-menu-item__icon">
+                                <img
+                                    class="icon__img"
+                                    src="svgs/logout_icon.svg"
+                                    alt="logout_icon"
+                                />
+                            </div>
+                            <div class="sb-menu-item__title">Logout</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="todo-list">
+                    <div class="todo-list__header">
+                        <div class="left-group">
+                            <input class="todo-list__title" type="text" value="Todo list" />
+                        </div>
+                        <div class="right-group"></div>
+                    </div>
+                    <div class="todo-list__item-holder">
+                        <div class="todo-item">
+                            <div class="todo-item__header">
+                                <div class="left-group">
+                                    <input class="todo-item__completed" type="checkbox" />
+                                    <div class="todo-item__title" contenteditable="true">
+                                        Сделать верстку
+                                    </div>
+                                    <img src="svgs/edit_icon.svg" alt="edit_icon" />
+                                </div>
+
+                                <div class="right-group">
+                                    <div class="btn">
+                                        <img
+                                            class="btn__img"
+                                            src="svgs/delete_icon.svg"
+                                            alt="delete_icon"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tags-board"></div>
+            </div>
+        </div>
+    </body>
+</html>
