@@ -1,0 +1,20 @@
+<svg width="580" height="400" xmlns="http://www.w3.org/2000/svg">
+ <!-- Created with SVG Editor - http://github.com/mzalive/SVG Editor/ -->
+
+ <g>
+  <title>background</title>
+  <rect fill="#fff" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+  <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+  </g>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g stroke="null" id="svg_6">
+   <ellipse stroke=" rgb(0, 0, 0)" stroke-width="0" transform="matrix(4.09493719030891,0,0,4.09493719030891,-16721.993587256096,-11421.337651996668) " id="svg_4" ry="23.881" rx="23.881" cy="2825.976836" cx="4145.916763"/>
+   <path stroke=" rgb(0, 0, 0)" id="svg_5" d="m51.14259,336.449665c0,-52.361958 239.10338,-21.146254 358.573175,-115.29295c309.040809,-243.538205 -0.426838,88.20189 -0.426838,112.505344"/>
+  </g>
+  <path id="svg_10" d="m214.369741,115.966387" opacity="0.5" fill-opacity="null" stroke-opacity="null" stroke-width="0" stroke=" rgb(0, 0, 0)" fill="null"/>
+  <path id="svg_11" d="m-37.731099,174.789916" opacity="0.5" fill-opacity="null" stroke-opacity="null" stroke-width="0" stroke=" rgb(0, 0, 0)" fill="null"/>
+ </g>
+</svg>
