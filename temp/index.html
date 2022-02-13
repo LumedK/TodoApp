@@ -22,6 +22,16 @@
                         </div>
                     </div>
                     <div class="sb-menu-group sb-menu--main">
+                        <div class="sb-menu-item sb-menu-item--hover">
+                            <div class="sb-menu-item__icon">
+                                <img
+                                    class="icon__img"
+                                    src="svgs/account_icon.svg"
+                                    alt="account_icon"
+                                />
+                            </div>
+                            <div class="sb-menu-item__title">Create account / Login</div>
+                        </div>
                         <div class="search-panel"></div>
                         <div class="sb-menu-item sb-menu-item--hover sb-menu-item--active">
                             <div class="sb-menu-item__icon">
@@ -83,6 +93,53 @@
                 </div>
             </div>
             <div class="container">
+                <div class="board login-board">
+                    <div class="board__title login-board__title">Welcome</div>
+
+                    <form class="login-board__form" action="POST">
+                        <label class="input-field">
+                            <div class="input-field__pre-hint">Email</div>
+                            <div class="input-field__input-group">
+                                <img
+                                    class="input-field__img"
+                                    src="svgs/mail_icon.svg"
+                                    alt="mail_icon"
+                                />
+                                <input
+                                    class="input-field__input"
+                                    placeholder="Enter your email "
+                                    type="email"
+                                    spellcheck="false"
+                                />
+                            </div>
+                        </label>
+
+                        <label class="input-field">
+                            <div class="input-field__pre-hint">Password</div>
+                            <div class="input-field__input-group">
+                                <img
+                                    class="input-field__img"
+                                    src="svgs/lock_icon.svg"
+                                    alt="lock_icon"
+                                />
+                                <input
+                                    class="input-field__input"
+                                    placeholder="Enter your password "
+                                    type="password"
+                                    spellcheck="false"
+                                />
+                            </div>
+                            <div class="input-field__post-hint">Forgot password ?</div>
+                        </label>
+
+                        <div class="login-board__btn-group">
+                            <button class="login-board__btn">Login</button>
+                            <div class="btn-group__spacer">/</div>
+                            <button class="login-board__btn">Create</button>
+                        </div>
+                    </form>
+                </div>
+
                 <div class="todo-list">
                     <div class="todo-list__header">
                         <div class="left-group">
