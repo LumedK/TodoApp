@@ -5,173 +5,93 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
-        <link href="style.css" rel="stylesheet" />
+        <link rel="stylesheet" href="style.css" />
     </head>
     <body>
         <div class="app">
             <div class="sidebar">
-                <div class="sb-size-button"></div>
-                <div class="sb-menu">
-                    <div class="sb-menu-group sb-menu--header">
-                        <div class="sb-menu-item">
-                            <div class="sb-menu-item__icon user-ava">W</div>
-                            <div class="sb-menu-item__title">
-                                <div class="username">Welcome</div>
-                                <div class="user-status">Local</div>
-                            </div>
-                        </div>
+                <div class="sb-item sb-item--user">
+                    <div class="sb-item__body">
+                        <div class="sb-item__icon sb-item__icon--user">W</div>
+                        <div class="sb-item__title sb-item__title--user">Welcome</div>
                     </div>
-                    <div class="sb-menu-group sb-menu--main">
-                        <div class="sb-menu-item sb-menu-item--hover">
-                            <div class="sb-menu-item__icon">
-                                <img
-                                    class="icon__img"
-                                    src="svgs/account_icon.svg"
-                                    alt="account_icon"
-                                />
-                            </div>
-                            <div class="sb-menu-item__title">Create account / Login</div>
+                </div>
+                <div class="sb-item">
+                    <div class="sb-item__body">
+                        <div class="sb-item__icon">
+                            <img
+                                width="24px"
+                                height="24px"
+                                src="svgs/account_icon.svg"
+                                alt="account"
+                            />
                         </div>
-                        <div class="search-panel"></div>
-                        <div class="sb-menu-item sb-menu-item--hover sb-menu-item--active">
-                            <div class="sb-menu-item__icon">
-                                <img class="icon__img" src="svgs/todo_icon.svg" alt="todo_icon" />
-                            </div>
-                            <div class="sb-menu-item__title">Todo list</div>
-                        </div>
-                        <div class="sb-menu-item sb-menu-item--hover">
-                            <div class="sb-menu-item__icon">
-                                <img
-                                    class="icon__img"
-                                    src="svgs/feature_icon.svg"
-                                    alt="feature_icon"
-                                />
-                            </div>
-                            <div class="sb-menu-item__title">Menu item 1</div>
-                        </div>
-                        <div class="sb-menu-item sb-menu-item--hover">
-                            <div class="sb-menu-item__icon">
-                                <img
-                                    class="icon__img"
-                                    src="svgs/feature_icon.svg"
-                                    alt="feature_icon"
-                                />
-                            </div>
-                            <div class="sb-menu-item__title">Menu item 1</div>
-                        </div>
+                        <div class="sb-item__title">Login / Create</div>
                     </div>
-                    <div class="sb-menu-group sb-menu--footer">
-                        <label class="sb-menu-item sb-menu-item--hover switcher__label">
-                            <div class="sb-menu-item__icon">
-                                <img
-                                    class="icon__img"
-                                    src="svgs/dark_mode_icon.svg"
-                                    alt="dark_mode_icon"
-                                />
-                            </div>
-                            <div class="sb-menu-item__title">
-                                <div class="switcher">
-                                    <input class="switcher__input" type="checkbox" />
-                                    <div class="switcher__title">Dark mode</div>
-                                    <div class="switcher__slider">
-                                        <div class="switcher__slider-ball"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </label>
-                        <div class="sb-menu-item sb-menu-item--hover">
-                            <div class="sb-menu-item__icon">
-                                <img
-                                    class="icon__img"
-                                    src="svgs/logout_icon.svg"
-                                    alt="logout_icon"
-                                />
-                            </div>
-                            <div class="sb-menu-item__title">Logout</div>
+                    <div class="sb-item__highlighter"></div>
+                </div>
+                <div class="sb-item">
+                    <div class="sb-item__highlighter"></div>
+                    <div class="sb-item__body">
+                        <div class="sb-item__icon">
+                            <img width="24px" height="24px" src="svgs/todo_icon.svg" alt="todo" />
                         </div>
+                        <div class="sb-item__title">Todo list</div>
                     </div>
+                </div>
+                <div class="sb-spacer"></div>
+                <div class="sb-item">
+                    <div class="sb-item__body">
+                        <div class="sb-item__icon">
+                            <img
+                                width="24px"
+                                height="24px"
+                                src="svgs/logout_icon.svg"
+                                alt="logout"
+                            />
+                        </div>
+                        <div class="sb-item__title">Logout</div>
+                    </div>
+                    <div class="sb-item__highlighter"></div>
                 </div>
             </div>
             <div class="container">
-                <div class="board login-board">
-                    <div class="board__title login-board__title">Welcome</div>
-
-                    <form class="login-board__form" action="POST">
-                        <label class="input-field">
-                            <div class="input-field__pre-hint">Email</div>
-                            <div class="input-field__input-group">
-                                <img
-                                    class="input-field__img"
-                                    src="svgs/mail_icon.svg"
-                                    alt="mail_icon"
-                                />
-                                <input
-                                    class="input-field__input"
-                                    placeholder="Enter your email "
-                                    type="email"
-                                    spellcheck="false"
-                                />
-                            </div>
-                        </label>
-
-                        <label class="input-field">
-                            <div class="input-field__pre-hint">Password</div>
-                            <div class="input-field__input-group">
-                                <img
-                                    class="input-field__img"
-                                    src="svgs/lock_icon.svg"
-                                    alt="lock_icon"
-                                />
-                                <input
-                                    class="input-field__input"
-                                    placeholder="Enter your password "
-                                    type="password"
-                                    spellcheck="false"
-                                />
-                            </div>
-                            <div class="input-field__post-hint">Forgot password ?</div>
-                        </label>
-
-                        <div class="login-board__btn-group">
-                            <button class="login-board__btn">Login</button>
-                            <div class="btn-group__spacer">/</div>
-                            <button class="login-board__btn">Create</button>
+                <div class="login-border">
+                    <div class="login-border__spacer-top"></div>
+                    <div class="login-card">
+                        <img
+                            class="login-card__logo"
+                            src="svgs/welcome_logo.svg"
+                            alt="welcome_logo"
+                        />
+                        <span class="login-card__title">Welcome</span>
+                        <div class="input-group login-card__input-email">
+                            <div class="input-group-hint input-group-hint--top">Email</div>
+                            <input
+                                class="input input-group__input"
+                                type="email"
+                                placeholder="Enter your email"
+                                spellcheck="false"
+                            />
                         </div>
-                    </form>
-                </div>
-
-                <div class="todo-list">
-                    <div class="todo-list__header">
-                        <div class="left-group">
-                            <input class="todo-list__title" type="text" value="Todo list" />
+                        <div class="input-group login-card__input-password">
+                            <div class="input-group-hint input-group-hint--top">Password</div>
+                            <input
+                                class="input input-group__input"
+                                type="password"
+                                placeholder="Enter your password"
+                                spellcheck="false"
+                            />
+                            <a class="input-group-hint input-group-hint--bottom" href="">
+                                Forgot password ?
+                            </a>
                         </div>
-                        <div class="right-group"></div>
+                        <button class="button login-card__btn">Login</button>
+                        <p class="login-card__sub-text">or</p>
+                        <a class="login-card__sub-text" href=""> Create new account</a>
                     </div>
-                    <div class="todo-list__item-holder">
-                        <div class="todo-item">
-                            <div class="todo-item__header">
-                                <div class="left-group">
-                                    <input class="todo-item__completed" type="checkbox" />
-                                    <div class="todo-item__title" contenteditable="true">
-                                        Сделать верстку
-                                    </div>
-                                    <img src="svgs/edit_icon.svg" alt="edit_icon" />
-                                </div>
-
-                                <div class="right-group">
-                                    <div class="btn">
-                                        <img
-                                            class="btn__img"
-                                            src="svgs/delete_icon.svg"
-                                            alt="delete_icon"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="login-border__spacer-bottom"></div>
                 </div>
-                <div class="tags-board"></div>
             </div>
         </div>
     </body>
