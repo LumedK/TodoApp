@@ -187,7 +187,7 @@ body {
     align-items: center;
     height: 100%;
 
-    display: none;
+    /* display: none; */
 }
 .login-border__spacer-top {
     flex: 0.5 1 auto;

@@ -62,13 +62,13 @@ async function refresh(refreshToken) {
         throw ApiError.unauthorizedError()
     }
     const userData = tokenService.validateRefreshToken(refreshToken)
-    const tokenFromDB = tokenService.findToken(refreshToken)
+    const tokenFromDB = await tokenService.findToken(refreshToken)
     if (!userData || !tokenFromDB) {
         throw ApiError.unauthorizedError()
     }
-    const user = await UserModel.findById(userData._id)
+    const user = await UserModel.findById(userData.id)
     const userDto = new UserDto(user)
-    const tokens = tokenService.generateTokens({ ...userDto })
+    const tokens = await tokenService.generateTokens({ ...userDto })
     await tokenService.saveToken(userDto.id, tokens.refreshToken)
     return { ...tokens, userDto }
 }
