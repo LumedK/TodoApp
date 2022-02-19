@@ -2,8 +2,8 @@ const userService = require('../service/user.service')
 const { validationResult } = require('express-validator')
 const ApiError = require('../service/api-error.service')
 
-const authController = {
-    registration: async (req, res, next) => {
+class AuthController {
+    registration = async (req, res, next) => {
         try {
             const errors = validationResult(req)
             if (!errors.isEmpty()) {
@@ -20,12 +20,12 @@ const authController = {
         } catch (error) {
             next(error)
         }
-    },
+    }
 
-    login: async (req, res, next) => {
+    login = async (req, res, next) => {
         try {
             const { email, password } = req.body
-            userData = await userService.login(email, password)
+            const userData = await userService.login(email, password)
             res.cookie('refreshToken', userData.refreshToken, {
                 maxAge: 30 * 24 * 60 * 60 * 1000,
                 httpOnly: true
@@ -34,9 +34,9 @@ const authController = {
         } catch (error) {
             next(error)
         }
-    },
+    }
 
-    logout: async (req, res, next) => {
+    logout = async (req, res, next) => {
         try {
             const { refreshToken } = req.cookies
             const token = await userService.logout(refreshToken)
@@ -45,9 +45,9 @@ const authController = {
         } catch (error) {
             next(error)
         }
-    },
+    }
 
-    activate: async (req, res, next) => {
+    activate = async (req, res, next) => {
         try {
             const activationLink = req.params.link
             await userService.activate(activationLink)
@@ -55,9 +55,9 @@ const authController = {
         } catch (error) {
             next(error)
         }
-    },
+    }
 
-    refresh: async (req, res, next) => {
+    refresh = async (req, res, next) => {
         try {
         } catch (error) {
             const { refreshToken } = req.cookies
@@ -69,15 +69,16 @@ const authController = {
             })
             return res.json(userData)
         }
-    },
+    }
 
-    test: async (req, res, next) => {
+    test = async (req, res, next) => {
         try {
-            res.json(['its works', 'true'])
+            const allUsers = await userService.test()
+            res.json(allUsers)
         } catch (error) {
             next(error)
         }
     }
 }
 
-module.exports = authController
+module.exports = new AuthController()

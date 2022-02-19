@@ -38,7 +38,6 @@ async function activate(activationLink) {
 
 async function login(email, password) {
     const user = await UserModel.findOne({ email })
-
     if (!user) {
         throw ApiError.badRequest('invalid correct username or password')
     }
@@ -46,8 +45,9 @@ async function login(email, password) {
     if (!isPasswordEqual) {
         throw ApiError.badRequest('invalid correct username or password')
     }
+
     const userDto = new UserDto(user)
-    const tokens = tokenService.generateTokens({ ...userDto })
+    const tokens = await tokenService.generateTokens({ ...userDto })
     await tokenService.saveToken(userDto.id, tokens.refreshToken)
     return { ...tokens, userDto }
 }
@@ -73,4 +73,9 @@ async function refresh(refreshToken) {
     return { ...tokens, userDto }
 }
 
-module.exports = { registration, activate, login, logout, refresh }
+async function test() {
+    allUsers = await UserModel.find()
+    return allUsers
+}
+
+module.exports = { registration, activate, login, logout, refresh, test }
