@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import LoginPageContext from '../context/loginPage.context'
+import { LoginPageContext } from '../context/app.context'
 
 const LoginButton = (props) => {
     const loginPageContext = useContext(LoginPageContext)

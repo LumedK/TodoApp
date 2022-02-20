@@ -7,11 +7,13 @@ import {
 } from '../services/auth.service'
 
 export const useAuth = () => {
+    console.log(1)
     const [loading, setLoading] = useState(true)
     const [isAuth, setAuth] = useState(false)
     const [userData, setUserData] = useState({})
 
     const initiate = useCallback(async () => {
+        console.log('heavy1')
         setLoading(true)
         const tokenData = await loginByToken()
         const newUserData = tokenData.userData
@@ -45,7 +47,19 @@ export const useAuth = () => {
         setUserData({})
     }
 
+    // useEffect(() => {
+    //     console.log('heavy')
+    //     // setLoading(true)
+    //     // const tokenData = await loginByToken()
+    //     // const newUserData = tokenData.userData
+    //     // if (newUserData && newUserData.isActivated) {
+    //     //     // setAuth(true)
+    //     //     // setUserData(newUserData)
+    //     // }
+    //     // setLoading(false)
+    // }, [])
     useEffect(() => {
+        console.log('heavy2')
         initiate()
     }, [initiate])
 

@@ -1,7 +1,7 @@
 import { useContext } from 'react'
-import LoginPageContext from '../context/loginPage.context'
+import { LoginPageContext } from '../context/app.context'
 const LoginVariant = (props) => {
-    const { variantID } = props
+    const { idVariant } = props
     const loginPageContext = useContext(LoginPageContext)
     const option = [
         {
@@ -12,7 +12,7 @@ const LoginVariant = (props) => {
             value: loginPageContext['loginVariant2'],
             setValue: loginPageContext['setLoginVariant2']
         }
-    ][variantID]
+    ][idVariant]
     const inscriptionText = {
         login: 'Login',
         create: 'Create new account',

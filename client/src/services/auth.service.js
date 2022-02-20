@@ -1,45 +1,5 @@
 import http from './http.service'
 
-// class ServiceResponse {
-//     constructor(userData, Errors = []) {
-//         this.Errors = Errors
-//         this.userData = {
-//             id: userData.id,
-//             email: userData.email,
-//             isActivated: userData.isActivated,
-//             activationLink: userData.activationLink
-//         }
-//     }
-// }
-
-// export function getUserData(data) {
-//     if (!data) return undefined
-//     const { id, email, isActivated, activationLink } = data
-//     return { id, email, isActivated, activationLink }
-// }
-
-export async function updateToken() {
-    const data = await getTokenData()
-    if (data) {
-        localStorage.setItem('todo-auth-token', data.accessToken)
-        return true
-    }
-    return false
-}
-
-async function getTokenData() {
-    const httpRes = await http('api/auth/refresh', {}, false)
-    if (httpRes && httpRes.ok) {
-        return httpRes.data
-    }
-    return undefined
-}
-
-export async function loginByToken() {
-    const tokenData = await getTokenData()
-    return new ServiceResponse().setUserData(tokenData)
-}
-
 class ServiceResponse {
     constructor() {
         this.errors = []
@@ -63,6 +23,28 @@ class ServiceResponse {
         this.errors.push({ field: undefined, message, type: 'unexpectedError' })
         return this
     }
+}
+
+export async function updateToken() {
+    const data = await getTokenData()
+    if (data) {
+        localStorage.setItem('todo-auth-token', data.accessToken)
+        return true
+    }
+    return false
+}
+
+async function getTokenData() {
+    const httpRes = await http('api/auth/refresh', {}, false)
+    if (httpRes && httpRes.ok) {
+        return httpRes.data
+    }
+    return undefined
+}
+
+export async function loginByToken() {
+    const tokenData = await getTokenData()
+    return new ServiceResponse().setUserData(tokenData)
 }
 
 export async function login(email, password) {

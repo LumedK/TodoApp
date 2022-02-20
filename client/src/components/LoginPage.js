@@ -1,8 +1,5 @@
-import {} from '../services/auth.service'
-
 import { useState, useContext } from 'react'
-import LoginPageContext from '../context/loginPage.context'
-import AuthContext from '../context/auth.context'
+import { LoginPageContext, AuthContext } from '../context/app.context'
 import { ReactComponent as WelcomeLogo } from '../assets/welcome_logo.svg'
 import LoginField from './LoginField'
 import LoginButton from './LoginButton'
@@ -50,7 +47,7 @@ function LoginPage() {
             }}
         >
             <div className="login-page">
-                <div className="login-page__spacer-top"></div>
+                <div className="spacer-x05"></div>
                 <div className="login-card">
                     <WelcomeLogo />
                     <span className="login-card__title">Welcome</span>
@@ -59,12 +56,12 @@ function LoginPage() {
                     <LoginButton />
                     <p className="login-card__sub-text">or</p>
                     <p>
-                        <LoginVariant variantID="0" />
+                        <LoginVariant key="0" idVariant="0" />
                         <span className="login-card__sub-text"> / </span>
-                        <LoginVariant variantID="1" />
+                        <LoginVariant key="1" idVariant="1" />
                     </p>
                 </div>
-                <div className="login-page__spacer-bottom"></div>
+                <div className="spacer"></div>
             </div>
         </LoginPageContext.Provider>
     )
@@ -73,7 +70,6 @@ function LoginPage() {
 export default LoginPage
 
 //todo
-// редирект при входе
 // валидация полей
 // состояние busy
 // страница "подтвердите регистрацию"
