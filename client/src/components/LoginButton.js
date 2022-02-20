@@ -1,12 +1,22 @@
-const LoginButton = (props) => {
-    const { loginType } = props
-    const { name, color } = {
-        login: { name: 'Login', color: 'green' },
-        create: { name: 'Create', color: 'green' },
-        local: { name: 'Login local', color: 'orange' }
-    }[loginType]
+import { useContext } from 'react'
+import LoginPageContext from '../context/loginPage.context'
 
-    return <button className={`pushbutton login-button login-button--${color}`}>{name}</button>
+const LoginButton = (props) => {
+    const loginPageContext = useContext(LoginPageContext)
+    const option = {
+        login: { title: 'Login', className: 'login-button--green' },
+        create: { title: 'Create', className: 'login-button--green' },
+        local: { title: 'Login local', className: 'login-button--orange' }
+    }[loginPageContext.loginType]
+
+    return (
+        <button
+            className={`pushbutton login-button ${option.className}`}
+            onClick={loginPageContext.submitLogin}
+        >
+            {option.title}
+        </button>
+    )
 }
 
 export default LoginButton

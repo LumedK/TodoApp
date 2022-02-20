@@ -128,7 +128,7 @@
     background-color: var(--bg-out-space-color);
 }
 .login-field__input:focus {
-    outline: var(--color-active) solid 1px;
+    outline: var(--color-active) solid 2px;
 }
 /* login-button */
 .login-button {

@@ -1,26 +1,42 @@
-import { useState } from 'react'
+import { useContext } from 'react'
+import LoginPageContext from '../context/loginPage.context'
 
 function LoginField(props) {
-    const { type, loginType, value, setValue } = props
-    const [hintTop, setHintTop] = useState(type === 'email' ? 'Email' : 'Password')
-    const placeholder = type === 'email' ? 'Enter your email' : 'Enter your password'
-    const hintBottom = type === 'email' ? '' : 'Forgot password ?'
+    const { type } = props
+    const loginPageContext = useContext(LoginPageContext)
+    const option = {
+        email: { hintTop: 'email', placeholder: 'Enter your email', setValueName: 'setEmail' },
+        password: {
+            hintTop: 'Password',
+            placeholder: 'Enter your password',
+            hintBottom: 'Forgot password ?',
+            setValueName: 'setPassword'
+        }
+    }[type]
+    const hide = {
+        login: { hintBottom: true },
+        create: {},
+        local: { field: true }
+    }
+
+    if (hide[loginPageContext.loginType].field) return ''
 
     return (
         <div className="login-field">
-            <div className="login-field-hint login-field-hint--top">{hintTop}</div>
+            <div className="login-field-hint login-field-hint--top">{option.hintTop}</div>
             <input
                 className="login-field__input"
                 type={type}
-                placeholder={placeholder}
+                placeholder={option.placeholder}
                 spellCheck="false"
+                value={loginPageContext[type]}
                 onChange={(e) => {
-                    setValue(e.target.value)
+                    loginPageContext[option.setValueName](e.target.value)
                 }}
             />
-            {loginType === 'login' && (
+            {hide[loginPageContext.loginType].hintBottom && option.hintBottom && (
                 <div className="login-field-hint login-field-hint--bottom linked-text">
-                    {hintBottom}
+                    {option.hintBottom}
                 </div>
             )}
         </div>

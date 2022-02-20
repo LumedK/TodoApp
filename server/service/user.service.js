@@ -24,7 +24,7 @@ async function registration(email, password) {
     const tokens = tokenService.generateTokens({ ...userDto })
     await tokenService.saveToken(userDto.id, tokens.refreshToken)
 
-    return { ...tokens, userDto }
+    return { ...tokens, ...userDto }
 }
 
 async function activate(activationLink) {
@@ -39,17 +39,17 @@ async function activate(activationLink) {
 async function login(email, password) {
     const user = await UserModel.findOne({ email })
     if (!user) {
-        throw ApiError.badRequest('invalid correct username or password')
+        throw ApiError.badRequest('incorrect email or password')
     }
     const isPasswordEqual = await bcrypt.compare(password, user.password)
     if (!isPasswordEqual) {
-        throw ApiError.badRequest('invalid correct username or password')
+        throw ApiError.badRequest('incorrect email or password')
     }
 
     const userDto = new UserDto(user)
     const tokens = await tokenService.generateTokens({ ...userDto })
     await tokenService.saveToken(userDto.id, tokens.refreshToken)
-    return { ...tokens, userDto }
+    return { ...tokens, ...userDto }
 }
 
 async function logout(refreshToken) {
@@ -70,7 +70,7 @@ async function refresh(refreshToken) {
     const userDto = new UserDto(user)
     const tokens = await tokenService.generateTokens({ ...userDto })
     await tokenService.saveToken(userDto.id, tokens.refreshToken)
-    return { ...tokens, userDto }
+    return { ...tokens, ...userDto }
 }
 
 async function test() {

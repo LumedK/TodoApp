@@ -1,10 +1,22 @@
 import http from './http.service'
 
-export function getUserData(data) {
-    if (!data) return undefined
-    const { id, email, isActivated, activationLink } = data
-    return { id, email, isActivated, activationLink }
-}
+// class ServiceResponse {
+//     constructor(userData, Errors = []) {
+//         this.Errors = Errors
+//         this.userData = {
+//             id: userData.id,
+//             email: userData.email,
+//             isActivated: userData.isActivated,
+//             activationLink: userData.activationLink
+//         }
+//     }
+// }
+
+// export function getUserData(data) {
+//     if (!data) return undefined
+//     const { id, email, isActivated, activationLink } = data
+//     return { id, email, isActivated, activationLink }
+// }
 
 export async function updateToken() {
     const data = await getTokenData()
@@ -24,34 +36,92 @@ async function getTokenData() {
 }
 
 export async function loginByToken() {
-    return getUserData(await getTokenData())
+    const tokenData = await getTokenData()
+    return new ServiceResponse().setUserData(tokenData)
+}
+
+class ServiceResponse {
+    constructor() {
+        this.errors = []
+        this.userData = {
+            id: undefined,
+            email: undefined,
+            isActivated: false,
+            activationLink: undefined
+        }
+    }
+    setUserData(data = {}) {
+        const { id, email, isActivated = false, activationLink } = data
+        this.userData = { id, email, isActivated, activationLink }
+        return this
+    }
+    validationError(field, message) {
+        this.errors.push({ field, message, type: 'validationError' })
+        return this
+    }
+    unexpectedError(message) {
+        this.errors.push({ field: undefined, message, type: 'unexpectedError' })
+        return this
+    }
 }
 
 export async function login(email, password) {
-    if (!email || !password) return undefined
-    const httpRes = await http('/api/auth/login', {
-        body: { email: email.toLowerCase(), password }
-    })
-    if (!httpRes || !httpRes.ok) return undefined
+    const serviceResponse = new ServiceResponse()
+    try {
+        if (!email) serviceResponse.validationError('email', 'Incorrect email or password')
+        if (!password) serviceResponse.validationError('password', 'Incorrect email or password')
+        if (serviceResponse.errors.length) return serviceResponse
 
-    localStorage.setItem('todo-auth-token', httpRes.data.accessToken)
-
-    return getUserData(httpRes.data)
+        const httpRes = await http('/api/auth/login', {
+            body: { email: email.toLowerCase(), password }
+        })
+        if (httpRes.ok && !httpRes.data.isActivated) {
+            serviceResponse.validationError('email', 'Activate your account')
+        } else if (httpRes.ok) {
+            serviceResponse.setUserData(httpRes.data)
+        } else if (httpRes.data.message === 'incorrect email or password') {
+            serviceResponse.validationError('email', 'User with this email already exists')
+        } else {
+            throw new Error(httpRes.data.message)
+        }
+        if (serviceResponse.errors.length === 0) {
+            localStorage.setItem('todo-auth-token', httpRes.data.accessToken)
+        }
+    } catch (error) {
+        return serviceResponse.unexpectedError(error.message)
+    }
+    return serviceResponse
 }
 
 export async function createAccount(email, password) {
-    if (!email || !password) return undefined
-    const httpRes = await http('/api/auth/registration', {
-        body: { email: email.toLowerCase(), password }
-    })
-    if (!httpRes || !httpRes.ok) return undefined
+    const serviceResponse = new ServiceResponse()
+    try {
+        if (!email) serviceResponse.validationError('email', 'Incorrect email or password')
+        if (!password) serviceResponse.validationError('password', 'Incorrect email or password')
+        if (serviceResponse.errors.length) return serviceResponse
 
-    localStorage.setItem('todo-auth-token', httpRes.data.accessToken)
-
-    return getUserData(httpRes.data)
+        const httpRes = await http('/api/auth/registration', {
+            body: { email: email.toLowerCase(), password }
+        })
+        if (httpRes.ok && !httpRes.data.isActivated) {
+            serviceResponse.validationError('email', 'Activate your account')
+        } else if (httpRes.ok) {
+            serviceResponse.setUserData(httpRes.data)
+        } else if (httpRes.data.message === 'User with this email already exists') {
+            serviceResponse.validationError('email', 'User with this email already exists')
+        } else {
+            throw new Error(httpRes.data.message)
+        }
+        if (serviceResponse.errors.length === 0) {
+            localStorage.setItem('todo-auth-token', httpRes.data.accessToken)
+        }
+    } catch (error) {
+        return serviceResponse.unexpectedError(error.message)
+    }
+    return serviceResponse
 }
 
 export async function logout() {
+    await http('/api/auth/logout', { method: 'POST' })
     localStorage.removeItem('todo-auth-token')
-    return getUserData()
 }

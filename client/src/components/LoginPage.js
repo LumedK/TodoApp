@@ -1,45 +1,33 @@
-import { useState } from 'react'
+import {} from '../services/auth.service'
+
+import { useState, useContext } from 'react'
 import LoginPageContext from '../context/loginPage.context'
+import AuthContext from '../context/auth.context'
 import { ReactComponent as WelcomeLogo } from '../assets/welcome_logo.svg'
 import LoginField from './LoginField'
 import LoginButton from './LoginButton'
+import LoginVariant from './LoginVariant'
 
 function LoginPage() {
-    // const LoginPageContext = useContext(LoginPageContext)
+    const loginTypes = ['login', 'create', 'local']
+    const authContext = useContext(AuthContext)
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [loginType, setLoginType] = useState('login')
-    const [loginVariant1, setLoginVariant1] = useState('create')
-    const [loginVariant2, setLoginVariant2] = useState('local')
+    const [loginType, setLoginType] = useState(loginTypes[0])
+    const [loginVariant1, setLoginVariant1] = useState(loginTypes[1])
+    const [loginVariant2, setLoginVariant2] = useState(loginTypes[2])
     const [busy, setBusy] = useState(false)
 
-    const loginTypes = new Map([
-        ['login', 'Login'],
-        ['create', 'Create new account'],
-        ['local', 'Login as local user']
-    ])
-
-    const changeLoginTypeHandler = (event) => {
-        const newLoginType = event.target.id
-        if (busy || loginType === newLoginType) {
-            return
+    const submitLogin = async (event) => {
+        if (busy) return
+        setBusy(true)
+        if (loginType === 'login') {
+            await authContext.login(email, password)
+        } else if (loginType === 'create') {
+            await authContext.createAccount(email, password)
         }
-        setBusy(true)
-        const variants = []
-        loginTypes.forEach((v, k) => {
-            if (k !== newLoginType) variants.push(k)
-        })
-        setLoginType(newLoginType)
-        setLoginVariant1(variants[0])
-        setLoginVariant2(variants[1])
         setBusy(false)
-    }
-    const submitLogin = async () => {
-        setBusy(true)
-
-        setBusy(false)
-        // return <Navigate to="/login" />;
     }
 
     return (
@@ -49,12 +37,15 @@ function LoginPage() {
                 setEmail,
                 password,
                 setPassword,
+                loginTypes,
                 loginType,
                 setLoginType,
                 loginVariant1,
                 setLoginVariant1,
                 loginVariant2,
                 setLoginVariant2,
+                busy,
+                setBusy,
                 submitLogin
             }}
         >
@@ -63,35 +54,14 @@ function LoginPage() {
                 <div className="login-card">
                     <WelcomeLogo />
                     <span className="login-card__title">Welcome</span>
-                    {loginType !== 'local' && (
-                        <LoginField type="email" value={email} setValue={setEmail} />
-                    )}
-                    {loginType !== 'local' && (
-                        <LoginField
-                            type="password"
-                            loginType={loginType}
-                            value={password}
-                            setValue={setPassword}
-                        />
-                    )}
-                    <LoginButton loginType={loginType} submitLogin={submitLogin} />
+                    <LoginField type="email" />
+                    <LoginField type="password" />
+                    <LoginButton />
                     <p className="login-card__sub-text">or</p>
-                    <p className="login-card__sub-text">
-                        <span
-                            className="login-card__sub-text linked-text"
-                            onClick={changeLoginTypeHandler}
-                            id={loginVariant1}
-                        >
-                            {loginTypes.get(loginVariant1)}
-                        </span>
+                    <p>
+                        <LoginVariant variantID="0" />
                         <span className="login-card__sub-text"> / </span>
-                        <span
-                            className="login-card__sub-text linked-text"
-                            onClick={changeLoginTypeHandler}
-                            id={loginVariant2}
-                        >
-                            {loginTypes.get(loginVariant2)}
-                        </span>
+                        <LoginVariant variantID="1" />
                     </p>
                 </div>
                 <div className="login-page__spacer-bottom"></div>
@@ -103,8 +73,6 @@ function LoginPage() {
 export default LoginPage
 
 //todo
-// вынести надписи вариантов в компонент
-// переписать с контекстом
 // редирект при входе
 // валидация полей
 // состояние busy
