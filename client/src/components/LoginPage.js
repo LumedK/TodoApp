@@ -17,13 +17,16 @@ function LoginPage() {
     const [busy, setBusy] = useState(false)
 
     const submitLogin = async (event) => {
-        if (busy) return
+        let errors
         setBusy(true)
         if (loginType === 'login') {
-            await authContext.login(email, password)
+            errors = await authContext.login(email, password)
         } else if (loginType === 'create') {
-            await authContext.createAccount(email, password)
+            errors = await authContext.createAccount(email, password)
         }
+        // show errors
+        if (!errors.length) return
+        console.log(errors)
         setBusy(false)
     }
 

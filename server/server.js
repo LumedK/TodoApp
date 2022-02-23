@@ -4,6 +4,7 @@ const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const mongoose = require('mongoose')
 const authRouter = require('./router/auth.router')
+const todoRouter = require('./router/todo.router')
 const apiErrorMiddleware = require('./middlewares/api-error.middleware')
 
 const server = express()
@@ -13,6 +14,7 @@ server.use(express.json())
 server.use(cookieParser())
 server.use(cors())
 server.use('/api/auth', authRouter)
+server.use('/api/todo', todoRouter)
 server.use(apiErrorMiddleware)
 
 // server.get('/api/getList', (req, res) => {

@@ -116,15 +116,14 @@
     margin-top: 5px;
 }
 .login-field__input {
-    padding: 10px;
-    color: var(--font-color-basic);
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 10px 10px 10px 5px;
     line-height: 0;
-    padding-left: 5px;
     border: none;
     border-radius: 5px;
+    color: var(--font-color-basic);
     background-color: var(--bg-out-space-color);
 }
 .login-field__input:focus {

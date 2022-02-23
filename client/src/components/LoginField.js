@@ -5,8 +5,14 @@ function LoginField(props) {
     const { type } = props
     const loginPageContext = useContext(LoginPageContext)
     const option = {
-        email: { hintTop: 'email', placeholder: 'Enter your email', setValueName: 'setEmail' },
+        email: {
+            name: 'email',
+            hintTop: 'email',
+            placeholder: 'Enter your email',
+            setValueName: 'setEmail'
+        },
         password: {
+            name: 'password',
             hintTop: 'Password',
             placeholder: 'Enter your password',
             hintBottom: 'Forgot password ?',
@@ -26,6 +32,7 @@ function LoginField(props) {
             <div className="login-field-hint login-field-hint--top">{option.hintTop}</div>
             <input
                 className="login-field__input"
+                // name={option.name}
                 type={type}
                 placeholder={option.placeholder}
                 spellCheck="false"

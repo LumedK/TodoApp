@@ -11,6 +11,7 @@ const LoginButton = (props) => {
 
     return (
         <button
+            // type="submit"
             className={`pushbutton login-button ${option.className}`}
             onClick={loginPageContext.submitLogin}
         >

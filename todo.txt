@@ -1,48 +1,24 @@
-Работа приложения:
-    Старт:
-        Авторизация
-        Получение локальных данных
-
-- Локальная аутентификация пользователя
-Этап 1: без локальных сохранений
-Этап 2: без шифрований
-Локальные Данные:
-
-    {
-        usersData: map[{'user_id': userData}, {'local': userData}],
-    }
-
-    userData = {
-        lists: map[{'list_id_1': todoList}, ...],
-        todos: map[{'todo_id_1': todoItem}, ...],
-    }
-
-    todoList = {
-        id: '1',
-        name: '123',
-        todos: ['todo_id_1', ...],
-        version: date in ms + index
-    }
-
-    todoItem = {
-        id: '1',
-        title: 'first todo'
-        completed: false,
-        version: date in ms + index
-    }
-
-
 Todo:
-    аутентификация на клиенте
-        страница аутентификации
-            форма
-    создать модели
-    формирование страниц 
-    
+    Создать модели
+    Service обработки моделей
+    Frontend 
 
-//
-    Начальный экран:
-        Проверка авторизации:
-            авторизирован -> Загрузка данных
-            не авторизирован -> Предложить зарегистрироваться / Локальный пользователь
+Service обработки моделей:
+    get     read
+    post    create
+    patch   update
+    delete  destroy
 
+    server code:
+        2** good
+        4** wrong
+        5** server error
+
+
+    Добавление списка
+    Удаление списка
+    Изменение списка
+
+    Добавление todo 
+    Удаление todo
+    Изменение todo

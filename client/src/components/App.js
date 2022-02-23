@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import { useAuth } from '../hooks/auth.hook'
 import { AuthContext, AppContext } from '../context/app.context'
 import PageHolder from './PageHolder'
@@ -9,26 +9,22 @@ function App() {
     const { loading, isAuth = false, userData, login, createAccount, logout } = useAuth()
     const [currentPage, setCurrentPage] = useState(isAuth ? 'todoPage' : 'loginPage')
 
-    console.log('isAuth', isAuth)
-
     useMemo(() => {
-        console.log(2)
-        setCurrentPage(isAuth ? 'todoPage' : 'loginPage')
-    }, [isAuth])
+        if (!loading) setCurrentPage(isAuth ? 'todoPage' : 'loginPage')
+    }, [isAuth, loading])
 
     if (loading) return <Loader />
     return (
-        <></>
-        // <AppContext.Provider value={{ currentPage, setCurrentPage }}>
-        //     <AuthContext.Provider
-        //         value={{ loading, isAuth, userData, login, createAccount, logout }}
-        //     >
-        //         <div className="app">
-        //             <Sidebar />
-        //             <PageHolder />
-        //         </div>
-        //     </AuthContext.Provider>
-        // </AppContext.Provider>
+        <AppContext.Provider value={{ currentPage, setCurrentPage }}>
+            <AuthContext.Provider
+                value={{ loading, isAuth, userData, login, createAccount, logout }}
+            >
+                <div className="app">
+                    <Sidebar />
+                    <PageHolder />
+                </div>
+            </AuthContext.Provider>
+        </AppContext.Provider>
     )
 }
 
