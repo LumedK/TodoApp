@@ -43,6 +43,7 @@ class TodoController {
         try {
             const userID = req?.user?.id
             const listID = listDTO(req.body).id
+
             const result = await todoService.getTodos(userID, listID)
             return res.json(result)
         } catch (error) {
@@ -73,6 +74,7 @@ class TodoController {
         try {
             const userID = req?.user?.id
             const todoID = todoDTO(req.body).id
+
             const result = await todoService.deleteTodo(userID, todoID)
             return res.json(result)
         } catch (error) {

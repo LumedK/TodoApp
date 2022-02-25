@@ -35,17 +35,23 @@ class todoService {
         return listDTO(list)
     }
 
-    async getTodos(currentUserID, listID) {
-        console.log()
-
+    async getTodos(currentUserID, listID = undefined) {
         if (
             !currentUserID ||
-            !listID ||
-            !(await TodoList.findById(listID)).userID === currentUserID
-        )
+            (listID && (await TodoList.findById(listID)).userID !== currentUserID)
+        ) {
             throw ApiError.badRequest('Unable to get todos. Incorrect data')
+        }
 
-        return (await Todo.find({ listID })).map((todo) => todoDTO(todo))
+        const listsIDs = []
+        if (listID) {
+            listsIDs.push(listID)
+        } else {
+            const userList = await TodoList.find({ userID: currentUserID })
+            userList.forEach((list) => listsIDs.push(list._id))
+        }
+        const todos = await Todo.find({ listID: listsIDs })
+        return todos.map((todo) => todoDTO(todo))
     }
     async createTodo(currentUserID, todoData) {
         if (

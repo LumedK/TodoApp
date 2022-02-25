@@ -32,7 +32,6 @@ function LoginField(props) {
             <div className="login-field-hint login-field-hint--top">{option.hintTop}</div>
             <input
                 className="login-field__input"
-                // name={option.name}
                 type={type}
                 placeholder={option.placeholder}
                 spellCheck="false"

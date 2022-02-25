@@ -5,12 +5,15 @@ import PageHolder from './PageHolder'
 import Sidebar from './Sidebar'
 import Loader from './Loader'
 
+import { useTodos } from '../hooks/todo.hook'
+
 function App() {
     const { loading, isAuth = false, userData, login, createAccount, logout } = useAuth()
-    const [currentPage, setCurrentPage] = useState(isAuth ? 'todoPage' : 'loginPage')
+    const [currentPage, setCurrentPage] = useState(isAuth ? 'allLists' : 'loginPage')
+    useTodos(userData.id)
 
     useMemo(() => {
-        if (!loading) setCurrentPage(isAuth ? 'todoPage' : 'loginPage')
+        if (!loading) setCurrentPage(isAuth ? 'allLists' : 'loginPage')
     }, [isAuth, loading])
 
     if (loading) return <Loader />

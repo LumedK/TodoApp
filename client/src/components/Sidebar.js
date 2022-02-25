@@ -6,21 +6,24 @@ const Sidebar = () => {
     const appContext = useContext(AppContext)
     const authContext = useContext(AuthContext)
 
-    const menuList = new Map([
-        ['spacer-top', { type: 'spacer', className: 'spacer-x05' }],
-        // ['login', { title: 'Login / Create', iconName: '' }],
-        [
-            'todoPage',
-            { title: 'Todo list', iconName: 'TodoIcon', onClickHandler: appContext.setCurrentPage }
-        ],
-        ['spacer-bot', { type: 'spacer', className: 'spacer' }],
-        ['logout', { title: 'Logout', iconName: 'LogoutIcon', onClickHandler: authContext.logout }]
-    ])
+    const menuMap = new Map()
+    menuMap.set('spacer-top', { type: 'spacer', className: 'spacer-x05' })
+    menuMap.set('allLists', {
+        title: 'All todo lists',
+        iconName: 'TodoIcon',
+        onClickHandler: appContext.setCurrentPage
+    })
+    menuMap.set('spacer-bot', { type: 'spacer', className: 'spacer' })
+    menuMap.set('logout', {
+        title: 'Logout',
+        iconName: 'LogoutIcon',
+        onClickHandler: authContext.logout
+    })
 
     if (!authContext.isAuth) return ''
     return (
         <div className="sidebar">
-            {[...menuList.entries()].map((item) => {
+            {[...menuMap.entries()].map((item) => {
                 const [key, option] = item
                 const { type, className } = option
                 if (type === 'spacer') return <div key={key} className={className}></div>
