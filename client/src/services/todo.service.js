@@ -57,7 +57,37 @@ class TodoService {
         await clientDB.todoItem.bulkPut(todoItems)
     }
 
-    async updateClientDB(userID, todoList) {}
+    async getTodoLists(userID) {
+        return await getClientLists(userID)
+    }
+
+    async addTodoList(userID) {
+        const newTodoList = { userID }
+        await clientDB.todoList.put(newTodoList)
+        console.log(await clientDB.todoList.toArray())
+        return newTodoList
+    }
+
+    async deleteTodoList(userID, id) {
+        let result = []
+        const ids = Array.isArray(id) ? id : [id]
+        await clientDB.transaction('!rw', clientDB.todoList, clientDB.todoItem, async () => {
+            const todoListIDs = await clientDB.todoList
+                .where('id')
+                .anyOf(ids)
+                .filter((list) => list.userID === userID)
+                .primaryKeys()
+            const todoItemIDs = await clientDB.todoItem
+                .where('todoListID')
+                .anyOf(todoListIDs)
+                .keys()
+
+            await clientDB.todoList.bulkDelete(todoListIDs)
+            await clientDB.todoItem.bulkDelete(todoItemIDs)
+            result = todoListIDs
+        })
+        return result
+    }
 }
 
 export default new TodoService()
