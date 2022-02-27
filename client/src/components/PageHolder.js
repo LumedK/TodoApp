@@ -1,17 +1,16 @@
 import { useContext } from 'react'
-import { AppContext } from '../context/app.context'
-import LoginPage from './LoginPage'
-import AllLists from './AllListPage'
-// import TodoPage from './TodoPage'
+import { CurrentPageContext } from '../context'
+import LoginPage from './Pages/LoginPage/Page'
+import AllTodoLists from './Pages/AllTodoListsPage/Page'
 
 function PageHolder() {
-    const appContext = useContext(AppContext)
+    const currentPageContext = useContext(CurrentPageContext)
     const pages = new Map([
-        ['allLists', <AllLists />],
+        ['allTodoLists', <AllTodoLists />],
         ['loginPage', <LoginPage />]
     ])
 
-    return <div className="page-holder">{pages.get(appContext.currentPage)}</div>
+    return <div className="page-holder">{pages.get(currentPageContext.currentPage)}</div>
 }
 
 export default PageHolder

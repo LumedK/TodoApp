@@ -1,52 +1,44 @@
-import { useEffect, useState, useCallback } from 'react'
-import {
-    createTodo,
-    getTodoListFromLocalStorage,
-    getTodoListFromServer,
-    mergeTodoListByVersion,
-    saveTodoListToLocalStorage
-} from '../common/todoManager.common'
+import { useCallback, useEffect, useState } from 'react'
+import todoService from '../services/todo.service'
 
-export const useTodoManager = () => {
-    const [todoList, setTodoList] = useState([])
-    const [loaded, setLoaded] = useState(true)
+let currentUserID
 
-    const loadTodoList = useCallback(async () => {
-        setLoaded(false)
+export const useTodoManager = (userID) => {
+    const [loading, setLoading] = useState(false)
+    const [todoLists, setTodoLists] = useState([])
 
-        setTodoList(
-            mergeTodoListByVersion(
-                todoList.concat(await getTodoListFromServer()).concat(getTodoListFromLocalStorage())
-            )
-        )
+    const addTodoList = async (userID) => {
+        setLoading(true)
+        const result = await todoService.addTodoList(userID)
+        setTodoLists(await todoService.getTodoLists(userID))
+        setLoading(false)
+        return result
+    }
 
-        saveTodoListToLocalStorage(todoList)
+    const deleteTodoList = async (userID, id) => {
+        setLoading(true)
+        const result = await todoService.deleteTodoList(userID, id)
+        setTodoLists(await todoService.getTodoLists(userID))
+        setLoading(false)
+        return result
+    }
 
-        setLoaded(true)
-    }, [])
+    const refreshClientDB = useCallback(async () => {
+        if (userID === currentUserID) return
+        currentUserID = userID
+        setLoading(true)
+        try {
+            todoService.refreshClientDB(userID)
+        } catch (error) {
+            console.log('refreshClientDB', error.message)
+        }
+        setTodoLists(await todoService.getTodoLists(userID))
+        setLoading(false)
+    }, [userID])
 
     useEffect(() => {
-        loadTodoList()
-    }, [loadTodoList])
+        refreshClientDB()
+    }, [refreshClientDB])
 
-    const addTodo = () => {
-        const newList = todoList.concat(createTodo())
-        setTodoList(newList)
-        saveTodoListToLocalStorage(newList)
-    }
-    const deleteTodo = (id) => {
-        const newList = todoList.filter((todo) => todo.id !== id)
-        setTodoList(newList)
-        saveTodoListToLocalStorage(newList)
-    }
-    const updateTodo = (id) => {
-        const newList = todoList.map((todo) => {
-            if (todo.id === id) todo.version++
-            return todo
-        })
-        setTodoList(newList)
-        saveTodoListToLocalStorage(newList)
-    }
-
-    return { loaded, todoList, addTodo, deleteTodo, updateTodo }
+    return { loading, todoLists, addTodoList, deleteTodoList }
 }

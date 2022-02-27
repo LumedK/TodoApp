@@ -1,24 +1,21 @@
 import { useState, useMemo } from 'react'
 import { useAuth } from '../hooks/auth.hook'
-import { AuthContext, AppContext } from '../context/app.context'
+import { AuthContext, CurrentPageContext } from '../context'
 import PageHolder from './PageHolder'
-import Sidebar from './Sidebar'
+import Sidebar from './Sidebar/Sidebar'
 import Loader from './Loader'
-
-import { useTodos } from '../hooks/todo.hook'
 
 function App() {
     const { loading, isAuth = false, userData, login, createAccount, logout } = useAuth()
-    const [currentPage, setCurrentPage] = useState(isAuth ? 'allLists' : 'loginPage')
-    useTodos(userData.id)
+    const [currentPage, setCurrentPage] = useState(isAuth ? 'allTodoLists' : 'loginPage')
 
     useMemo(() => {
-        if (!loading) setCurrentPage(isAuth ? 'allLists' : 'loginPage')
+        if (!loading) setCurrentPage(isAuth ? 'allTodoLists' : 'loginPage')
     }, [isAuth, loading])
 
     if (loading) return <Loader />
     return (
-        <AppContext.Provider value={{ currentPage, setCurrentPage }}>
+        <CurrentPageContext.Provider value={{ currentPage, setCurrentPage }}>
             <AuthContext.Provider
                 value={{ loading, isAuth, userData, login, createAccount, logout }}
             >
@@ -27,7 +24,7 @@ function App() {
                     <PageHolder />
                 </div>
             </AuthContext.Provider>
-        </AppContext.Provider>
+        </CurrentPageContext.Provider>
     )
 }
 

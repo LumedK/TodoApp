@@ -1,17 +1,17 @@
 import { useContext } from 'react'
-import { AuthContext, AppContext } from '../context/app.context'
+import { AuthContext, CurrentPageContext } from '../../context'
 import SidebarItem from './SidebarItem'
 
 const Sidebar = () => {
-    const appContext = useContext(AppContext)
+    const currentPageContext = useContext(CurrentPageContext)
     const authContext = useContext(AuthContext)
 
     const menuMap = new Map()
     menuMap.set('spacer-top', { type: 'spacer', className: 'spacer-x05' })
-    menuMap.set('allLists', {
+    menuMap.set('allTodoLists', {
         title: 'All todo lists',
         iconName: 'TodoIcon',
-        onClickHandler: appContext.setCurrentPage
+        onClickHandler: currentPageContext.setCurrentPage
     })
     menuMap.set('spacer-bot', { type: 'spacer', className: 'spacer' })
     menuMap.set('logout', {

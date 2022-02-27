@@ -64,7 +64,6 @@ class TodoService {
     async addTodoList(userID) {
         const newTodoList = { userID }
         await clientDB.todoList.put(newTodoList)
-        console.log(await clientDB.todoList.toArray())
         return newTodoList
     }
 

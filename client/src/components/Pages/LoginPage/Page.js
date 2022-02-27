@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react'
-import { LoginPageContext, AuthContext } from '../context/app.context'
-import { ReactComponent as WelcomeLogo } from '../assets/welcome_logo.svg'
+import { LoginPageContext, AuthContext } from '../../../context'
+import { ReactComponent as WelcomeLogo } from '../../../assets/welcome_logo.svg'
 import LoginField from './LoginField'
 import LoginButton from './LoginButton'
 import LoginVariant from './LoginVariant'
