@@ -1,21 +1,27 @@
-import { useState, useMemo } from 'react'
+import { useEffect } from 'react'
 import { useAuth } from '../hooks/auth.hook'
-import { AuthContext, CurrentPageContext } from '../context'
+import { usePageManager } from '../hooks/pageManager.hook'
+import { AuthContext, PageManagerContext } from '../context'
 import PageHolder from './PageHolder'
 import Sidebar from './Sidebar/Sidebar'
 import Loader from './Loader'
 
 function App() {
     const { loading, isAuth = false, userData, login, createAccount, logout } = useAuth()
-    const [currentPage, setCurrentPage] = useState(isAuth ? 'allTodoLists' : 'loginPage')
+    const pageManager = usePageManager()
 
-    useMemo(() => {
-        if (!loading) setCurrentPage(isAuth ? 'allTodoLists' : 'loginPage')
-    }, [isAuth, loading])
+    useEffect(() => {
+        if (loading) return
+        else if (!isAuth) pageManager.openPage('login')
+        else if (isAuth) {
+            pageManager.addHandler('logout', logout)
+            pageManager.openPage('allTodoLists')
+        }
+    }, [loading, isAuth]) // eslint-disable-line
 
     if (loading) return <Loader />
     return (
-        <CurrentPageContext.Provider value={{ currentPage, setCurrentPage }}>
+        <PageManagerContext.Provider value={pageManager}>
             <AuthContext.Provider
                 value={{ loading, isAuth, userData, login, createAccount, logout }}
             >
@@ -24,7 +30,7 @@ function App() {
                     <PageHolder />
                 </div>
             </AuthContext.Provider>
-        </CurrentPageContext.Provider>
+        </PageManagerContext.Provider>
     )
 }
 

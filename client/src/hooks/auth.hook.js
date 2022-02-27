@@ -40,9 +40,11 @@ export const useAuth = () => {
     }
     const logout = async () => {
         if (!isAuth) return
+        setLoading(true)
         await serviceLogout()
         setAuth(false)
         setUserData({})
+        setLoading(false)
     }
 
     useEffect(() => {

@@ -1,12 +1,12 @@
-import { addPageInfo } from './PageInfo'
+// import { addPageInfo } from './PageInfo'
 
-console.log('init page 1')
+// console.log('init page 1')
 
-addPageInfo({
-    name: 'page1',
-    title: 'title page 1',
-    iconName: 'TodoIcon'
-})
+// addPageInfo({
+//     name: 'page1',
+//     title: 'title page 1',
+//     iconName: 'TodoIcon'
+// })
 
 const Page1 = () => {
     return (

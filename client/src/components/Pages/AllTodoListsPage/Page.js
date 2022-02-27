@@ -9,7 +9,6 @@ function AllLists() {
     const { loading, todoLists, addTodoList, deleteTodoList } = useTodoManager(userID)
 
     if (loading) return <Loader />
-
     return (
         <div className="page">
             <div className="page__title">Todo lists</div>

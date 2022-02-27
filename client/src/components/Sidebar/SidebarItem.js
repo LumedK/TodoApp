@@ -1,23 +1,22 @@
-import { ReactComponent as TodoIcon } from '../../assets/todo_icon.svg'
-import { ReactComponent as LogoutIcon } from '../../assets/logout_icon.svg'
+import { useContext } from 'react'
+import { PageManagerContext } from '../../context'
 
 const SidebarItem = (props) => {
-    const { key, ...option } = props.props
-    const Icon = {
-        TodoIcon: <TodoIcon className="sb-item__icon" />,
-        LogoutIcon: <LogoutIcon className="sb-item__icon" />
-    }[option.iconName]
+    const pageManager = useContext(PageManagerContext)
+    const { key, options } = props.props
+    const Icon = options.icon
+
+    const onClickHandler = () => {
+        if (options.handlerName) pageManager.runHandler(options.handlerName)
+        pageManager.openPage(key)
+    }
 
     return (
-        <div
-            className="sb-item"
-            onClick={() => {
-                option.onClickHandler(key)
-            }}
-        >
-            {Icon}
-            <span className="sb-item__title">{option.title}</span>
+        <div className="sb-item" onClick={onClickHandler}>
+            <Icon className="sb-item__icon" />
+            <span className="sb-item__title">{options.navTitle}</span>
         </div>
     )
 }
+
 export default SidebarItem
