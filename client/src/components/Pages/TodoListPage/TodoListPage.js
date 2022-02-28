@@ -1,31 +1,32 @@
-import { useContext } from 'react'
+import { use } from 'bcrypt/promises'
+import { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../../../context'
 import { useTodoManager } from '../../../hooks/todoManager.hook'
 import Loader from '../../Loader'
-// import TodoCard from './TodoCard'
+import TodoCard from './TodoCard'
 
 function TodoListPage(props) {
     const { id: todoListID } = props.props
     const userID = useContext(AuthContext).userData.id
-    const { getTodoItems } = useTodoManager(userID)
+    const todoManager = useTodoManager(userID)
+    const [todoListData, setTodoListData] = useState()
 
-    //? Лишний вызов useTodoManager
-    console.log(1)
+    useEffect(() => {
+        setTodoListData(todoManager.getTodoList(userID, todoListID))
+    }, [userID, todoListID, todoManager])
 
-    // console.log('todos', getTodoItems(userID, todoListID))
+    console.log(todoListData)
 
-    // console.log(userID)
-
-    if (false) return <Loader />
+    if (todoManager.loading) return <Loader />
     return (
         <div className="page">
-            <div className="page__title">123 123</div>
+            <div className="page__title">{todoListData.title}</div>
             <div className="list-holder">
                 {/* <div className="sticky-holder--add-button">
                     <div className="add-button" onClick={() => addTodoList(userID)}></div> 
                 </div> */}
-                {/* {todoLists.map((todoList) => (
-                    <TodoCard key={todoList.id} todoList={todoList} handlers={{ deleteTodoList }} />
+                {/* {TodoCard.map((todoList) => (
+                    <TodoCard key={todoList.id} todoList={todoList} />
                 ))} */}
             </div>
         </div>

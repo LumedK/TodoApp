@@ -12,10 +12,9 @@ export const useTodoManager = (userID) => {
         setTodoLists(newTodoLists)
     }
 
-    const getTodoItems = (userID, todoListID) => {
-        // !savedTodoList
-        if (userID !== currentUserID) return []
-        return savedTodoList.filter((list) => list.id === todoListID)
+    const getTodoList = (userID, todoListID) => {
+        if (userID !== currentUserID) return {}
+        return savedTodoList.find((list) => list.id === todoListID)
     }
 
     const addTodoList = async (userID) => {
@@ -39,7 +38,6 @@ export const useTodoManager = (userID) => {
             setTodoLists(savedTodoList)
             return
         }
-        console.log('ref')
         currentUserID = userID
         setLoading(true)
         try {
@@ -49,11 +47,11 @@ export const useTodoManager = (userID) => {
         }
         setAndSaveTodoLists(await todoService.getTodoLists(userID))
         setLoading(false)
-    }, [userID]) // useCallback не защищает от повтора :/
+    }, [userID])
 
     useEffect(() => {
         refreshClientDB()
     }, [refreshClientDB])
 
-    return { loading, todoLists, addTodoList, deleteTodoList, getTodoItems }
+    return { loading, todoLists, addTodoList, deleteTodoList, getTodoList }
 }
