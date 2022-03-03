@@ -1,20 +1,23 @@
 import { useContext } from 'react'
 import { AuthContext } from '../../../context'
-import { useTodoManager } from '../../../hooks/todoManager.hook'
+import { useTodo } from '../../../hooks/useTodo'
 import Loader from '../../Loader'
 import ListCard from './ListCard'
 
 function AllLists() {
     const userID = useContext(AuthContext).userData.id
-    const { loading, todoLists, addTodoList, deleteTodoList } = useTodoManager(userID)
+    const { todoLists, updateTodoList, deleteTodoList } = useTodo('todoLists', { userID })
 
-    if (loading) return <Loader />
+    if (!todoLists) return <Loader />
+
+    // console.log(loading, todoLists)
+
     return (
         <div className="page">
             <div className="page__title">Todo lists</div>
             <div className="list-holder">
                 <div className="sticky-holder--add-button">
-                    <div className="add-button" onClick={() => addTodoList(userID)}></div>
+                    <div className="add-button" onClick={() => updateTodoList(userID)}></div>
                 </div>
                 {todoLists.map((todoList) => (
                     <ListCard key={todoList.id} todoList={todoList} handlers={{ deleteTodoList }} />

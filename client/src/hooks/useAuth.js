@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react'
-import { loginByToken } from '../services/auth.service'
+import { loginByToken } from '../managers/auth.manager'
 import {
     login as serviceLogin,
     logout as serviceLogout,
     createAccount as serviceCreateAccount
-} from '../services/auth.service'
+} from '../managers/auth.manager'
 
 export const useAuth = () => {
     const [loading, setLoading] = useState(true)

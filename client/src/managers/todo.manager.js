@@ -1,4 +1,4 @@
-import http from './http.service'
+import http from './http.manager'
 import { clientDB } from '../db'
 
 const mergeByVersion = (array) => {

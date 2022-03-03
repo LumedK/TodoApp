@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
-import { useAuth } from '../hooks/auth.hook'
-import { usePageManager } from '../hooks/pageManager.hook'
+import { useAuth } from '../hooks/useAuth'
+import { usePageManager } from '../hooks/usePages'
 import { AuthContext, PageManagerContext } from '../context'
 import PageHolder from './PageHolder'
 import Sidebar from './Sidebar/Sidebar'

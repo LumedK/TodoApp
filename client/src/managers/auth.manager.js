@@ -1,4 +1,4 @@
-import http from './http.service'
+import http from './http.manager'
 
 class ServiceResponse {
     constructor() {
