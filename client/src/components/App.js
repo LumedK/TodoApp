@@ -7,7 +7,7 @@ import Sidebar from './Sidebar/Sidebar'
 import Loader from './Loader'
 
 function App() {
-    const { loading, isAuth = false, userData, login, createAccount, logout } = useAuth()
+    const { loading, isAuth, userData, login, createAccount, logout } = useAuth()
     const pageManager = usePageManager()
 
     useEffect(() => {
@@ -22,9 +22,7 @@ function App() {
     if (loading) return <Loader />
     return (
         <PageManagerContext.Provider value={pageManager}>
-            <AuthContext.Provider
-                value={{ loading, isAuth, userData, login, createAccount, logout }}
-            >
+            <AuthContext.Provider value={{ isAuth, userData, login, createAccount, logout }}>
                 <div className="app">
                     <Sidebar />
                     <PageHolder />

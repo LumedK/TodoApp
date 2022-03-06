@@ -18,10 +18,6 @@
     box-sizing: border-box;
 }
 
-.body {
-    display: flex;
-}
-
 #root {
     font-family: 'Roboto', sans-serif;
     background-color: var(--bg-out-space-color);
@@ -30,6 +26,7 @@
 
     width: 100vw;
     height: 100vh;
+    overflow: auto;
 }
 
 .app {
@@ -43,12 +40,11 @@
     background-color: var(--bg-board-color);
 }
 .page-holder {
-    /* max-width: 700px; */
-    /* width: 100%; */
     flex: 1 1 auto;
-    overflow-x: auto;
+    overflow: auto;
     display: flex;
     flex-flow: column nowrap;
+    height: 100vh;
 }
 
 /* common */
@@ -158,7 +154,7 @@
 
 /* sidebar */
 .sidebar {
-    flex: 0 0 auto;
+    /* flex: 0 0 auto; */
     display: flex;
     flex-flow: column nowrap;
 
@@ -166,6 +162,7 @@
     padding-top: 20px;
     padding-bottom: 10px;
     width: 200px;
+    height: 100vh;
 }
 .sb-item {
     position: relative;

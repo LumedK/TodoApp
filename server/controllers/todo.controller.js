@@ -42,9 +42,9 @@ class TodoController {
     async getTodos(req, res, next) {
         try {
             const userID = req?.user?.id
-            const listID = listDTO(req.body).id
+            const listIDs = req.body.listIDs
 
-            const result = await todoService.getTodos(userID, listID)
+            const result = await todoService.getTodos(userID, listIDs)
             return res.json(result)
         } catch (error) {
             next(error)

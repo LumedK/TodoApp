@@ -1,17 +1,17 @@
 import { useContext } from 'react'
 import { AuthContext } from '../../../context'
-import { useTodo } from '../../../hooks/useTodo'
+import { useTodoManager } from '../../../hooks/useTodoManager'
 import Loader from '../../Loader'
 import ListCard from './ListCard'
 
 function AllLists() {
     const userID = useContext(AuthContext).userData.id
-    const { todoLists, updateTodoList, deleteTodoList } = useTodo('todoLists', { userID })
+    const todoManager = useTodoManager({ userID })
 
-    if (!todoLists) return <Loader />
+    const deleteTodoList = () => {}
+    const updateTodoList = (userID) => {}
 
-    // console.log(loading, todoLists)
-
+    if (!todoManager.todoLists) return <Loader />
     return (
         <div className="page">
             <div className="page__title">Todo lists</div>
@@ -19,7 +19,7 @@ function AllLists() {
                 <div className="sticky-holder--add-button">
                     <div className="add-button" onClick={() => updateTodoList(userID)}></div>
                 </div>
-                {todoLists.map((todoList) => (
+                {todoManager.todoLists.map((todoList) => (
                     <ListCard key={todoList.id} todoList={todoList} handlers={{ deleteTodoList }} />
                 ))}
             </div>
