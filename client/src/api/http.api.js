@@ -1,4 +1,4 @@
-import { updateToken } from './auth.manager'
+import { updateToken } from './auth.api'
 
 export default async function http(url, options = {}, refreshToken = true) {
     try {

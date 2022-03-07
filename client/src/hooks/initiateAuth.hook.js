@@ -1,10 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { loginByToken } from '../managers/auth.manager'
-import {
-    login as serviceLogin,
-    logout as serviceLogout,
-    createAccount as serviceCreateAccount
-} from '../managers/auth.manager'
+import authAPI from '../api/auth.api'
 
 export const useAuth = () => {
     const [loading, setLoading] = useState(true)
@@ -13,7 +8,7 @@ export const useAuth = () => {
 
     const initiate = useCallback(async () => {
         setLoading(true)
-        const tokenData = await loginByToken()
+        const tokenData = await authAPI.loginByToken()
         const newUserData = tokenData.userData
         if (newUserData && newUserData.isActivated) {
             setAuth(true)
@@ -23,7 +18,7 @@ export const useAuth = () => {
     }, [])
 
     const login = async (email, password) => {
-        const serviceResponse = await serviceLogin(email, password)
+        const serviceResponse = await authAPI.login(email, password)
         if (!serviceResponse.errors.length) {
             setAuth(true)
             setUserData(serviceResponse.userData)
@@ -31,7 +26,7 @@ export const useAuth = () => {
         return serviceResponse.errors
     }
     const createAccount = async (email, password) => {
-        const serviceResponse = await serviceCreateAccount(email, password)
+        const serviceResponse = await authAPI.createAccount(email, password)
         if (!serviceResponse.errors.length) {
             setAuth(true)
             setUserData(serviceResponse.userData)
@@ -41,7 +36,7 @@ export const useAuth = () => {
     const logout = async () => {
         if (!isAuth) return
         setLoading(true)
-        await serviceLogout()
+        await authAPI.logout()
         setAuth(false)
         setUserData({})
         setLoading(false)

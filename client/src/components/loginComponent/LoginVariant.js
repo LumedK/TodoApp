@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { LoginPageContext } from '../../../context'
+import { LoginPageContext } from '../../context'
 const LoginVariant = (props) => {
     const { idVariant } = props
     const loginPageContext = useContext(LoginPageContext)

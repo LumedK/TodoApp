@@ -3,10 +3,10 @@ import { useState } from 'react'
 import { ReactComponent as iconTodo } from '../assets/todo_icon.svg'
 import { ReactComponent as iconLogout } from '../assets/logout_icon.svg'
 // pages
-import LoginPage from '../components/Pages/LoginPage/LoginPage'
-import AllLists from '../components/Pages/AllTodoListsPage/AllTodoListsPage'
-import TodoListPage from '../components/Pages/TodoListPage/TodoListPage'
-import Page1 from '../components/Page1'
+import LoginPage from '../components/pages/LoginPage'
+import AllLists from '../components/pages/AllTodoListsPage'
+import TodoListPage from '../components/pages/TodoListPage'
+import Page1 from '../components/pages/Page1'
 
 const handlers = new Map([['logout', () => {}]])
 

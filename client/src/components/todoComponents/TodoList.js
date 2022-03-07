@@ -1,13 +1,17 @@
 import { useContext } from 'react'
-import { AuthContext, PageManagerContext } from '../../../context'
+import { TodoManagerContext, PageManagerContext } from '../../context'
 
-const ListCard = (props) => {
-    const userID = useContext(AuthContext).userData.id
+const TodoList = (props) => {
+    const { todoList } = props
     const pageManager = useContext(PageManagerContext)
-    const { todoList, handlers } = props
+    const todoManager = useContext(TodoManagerContext)
 
     const OnClickOpen = () => {
         pageManager.openPage('todoListPage', { id: todoList.id })
+    }
+
+    const OnClickDelete = () => {
+        todoManager.deleteTodoList(todoList.id)
     }
 
     return (
@@ -17,13 +21,10 @@ const ListCard = (props) => {
                 Open
             </div>
             <div> | </div>
-            <div
-                className="linked-text"
-                onClick={() => handlers.deleteTodoList(userID, todoList.id)}
-            >
+            <div className="linked-text" onClick={OnClickDelete}>
                 Delete
             </div>
         </div>
     )
 }
-export default ListCard
+export default TodoList

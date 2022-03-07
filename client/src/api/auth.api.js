@@ -1,4 +1,4 @@
-import http from './http.manager'
+import http from './http.api'
 
 class ServiceResponse {
     constructor() {
@@ -107,3 +107,6 @@ export async function logout() {
     await http('/api/auth/logout', { method: 'POST' })
     localStorage.removeItem('todo-auth-token')
 }
+
+const authAPI = { updateToken, loginByToken, login, createAccount, logout }
+export default authAPI

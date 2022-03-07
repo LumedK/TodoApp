@@ -1,34 +1,38 @@
 import { useEffect } from 'react'
-import { useAuth } from '../hooks/useAuth'
-import { usePageManager } from '../hooks/usePages'
-import { AuthContext, PageManagerContext } from '../context'
+import { useAuth } from '../hooks/initiateAuth.hook'
+import { usePageManager } from '../hooks/initiatePageManager.hook'
+import { useTodoManager } from '../hooks/initiateTodoManager.hook'
+import { AuthContext, PageManagerContext, TodoManagerContext } from '../context'
 import PageHolder from './PageHolder'
-import Sidebar from './Sidebar/Sidebar'
+import Sidebar from './sidebar/Sidebar'
 import Loader from './Loader'
 
 function App() {
-    const { loading, isAuth, userData, login, createAccount, logout } = useAuth()
+    const auth = useAuth()
     const pageManager = usePageManager()
+    const todoManager = useTodoManager(auth.userData.id)
 
     useEffect(() => {
-        if (loading) return
-        else if (!isAuth) pageManager.openPage('login')
-        else if (isAuth) {
-            pageManager.addHandler('logout', logout)
+        pageManager.addHandler('logout', auth.logout)
+        if (auth.isAuth) {
             pageManager.openPage('allTodoLists')
+        } else {
+            pageManager.openPage('login')
         }
-    }, [loading, isAuth]) // eslint-disable-line
+    }, [auth.isAuth]) // eslint-disable-line
 
-    if (loading) return <Loader />
+    if (auth.loading) return <Loader />
     return (
-        <PageManagerContext.Provider value={pageManager}>
-            <AuthContext.Provider value={{ isAuth, userData, login, createAccount, logout }}>
-                <div className="app">
-                    <Sidebar />
-                    <PageHolder />
-                </div>
-            </AuthContext.Provider>
-        </PageManagerContext.Provider>
+        <AuthContext.Provider value={auth}>
+            <PageManagerContext.Provider value={pageManager}>
+                <TodoManagerContext.Provider value={todoManager}>
+                    <div className="app">
+                        <Sidebar />
+                        <PageHolder />
+                    </div>
+                </TodoManagerContext.Provider>
+            </PageManagerContext.Provider>
+        </AuthContext.Provider>
     )
 }
 

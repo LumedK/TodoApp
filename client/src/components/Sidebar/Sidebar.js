@@ -1,6 +1,5 @@
 import { useContext } from 'react'
 import { AuthContext, PageManagerContext } from '../../context'
-// import { pagesGroup, pages } from '../pageInfo'
 import SidebarItem from './SidebarItem'
 
 const Sidebar = () => {

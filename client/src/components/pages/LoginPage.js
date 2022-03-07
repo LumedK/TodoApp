@@ -1,9 +1,9 @@
 import { useState, useContext } from 'react'
-import { LoginPageContext, AuthContext } from '../../../context'
-import { ReactComponent as WelcomeLogo } from '../../../assets/welcome_logo.svg'
-import LoginField from './LoginField'
-import LoginButton from './LoginButton'
-import LoginVariant from './LoginVariant'
+import { LoginPageContext, AuthContext } from '../../context'
+import { ReactComponent as WelcomeLogo } from '../../assets/welcome_logo.svg'
+import LoginField from '../loginComponent/LoginField'
+import LoginButton from '../loginComponent/LoginButton'
+import LoginVariant from '../loginComponent/LoginVariant'
 
 function LoginPage() {
     const loginTypes = ['login', 'create', 'local']

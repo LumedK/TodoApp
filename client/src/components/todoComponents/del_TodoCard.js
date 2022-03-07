@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { AuthContext, PageManagerContext } from '../../../context'
+import { AuthContext, PageManagerContext } from '../../context'
 
 const ListCard = (props) => {
     const userID = useContext(AuthContext).userData.id
