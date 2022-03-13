@@ -6,9 +6,10 @@ export const useTodoManager = (userID) => {
     const [todoLists, setTodoLists] = useState()
     const [todoItems, setTodoItems] = useState()
 
-    const updateTodoList = async () => {
-        await todoAPI.updateTodoList(userIDRef.current)
+    const updateTodoList = async (todoListID, todoList) => {
+        const newTodoListID = await todoAPI.updateTodoList(userIDRef.current, todoListID, todoList)
         setTodoLists(await todoAPI.getTodoLists(userIDRef.current))
+        return newTodoListID
     }
     const deleteTodoList = async (todoListID) => {
         await todoAPI.deleteTodoList(userIDRef.current, todoListID)

@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useState, useRef } from 'react'
 import { TodoManagerContext } from '../../context'
 import TodoItem from '../todoComponents/TodoItem'
 
@@ -15,17 +15,54 @@ function TodoListPage(props) {
     const [todoList, setTodoList] = useState(getTodoList())
     const [todoItemsList, setTodoItemsList] = useState(getTodoItemsList())
 
+    const titleRef = useRef()
+    const isModified = useRef()
+
+    useEffect(() => {
+        setTodoItemsList(getTodoItemsList())
+        checkTitleHeight()
+        isModified.current = false
+    }, [todoManager.todoItems, getTodoItemsList])
+
     const onClickAddTodoItem = async () => {
         await todoManager.updateTodoItem(todoListID)
     }
 
-    useEffect(() => {
-        setTodoItemsList(getTodoItemsList())
-    }, [todoManager.todoItems, getTodoItemsList])
+    const checkTitleHeight = () => {
+        titleRef.current.rows = 1
+        while (titleRef.current.scrollHeight > titleRef.current.clientHeight) {
+            titleRef.current.rows++
+        }
+    }
+
+    const onBlurPageTitle = async (event) => {
+        if (!isModified.current) return
+        isModified.current = false
+        await todoManager.updateTodoList(todoListID, todoList)
+    }
+    const onChangeListTitle = (event) => {
+        isModified.current = true
+        checkTitleHeight()
+
+        setTodoList((prevTodoList) => {
+            prevTodoList.title = event.target.value
+            return { ...prevTodoList }
+        })
+    }
 
     return (
         <div className="page">
-            <div className="page__title">{todoList.title}</div>
+            <textarea
+                ref={titleRef}
+                className="page__title text-input"
+                type="text"
+                placeholder="Enter the name of the todo list ..."
+                value={todoList.title}
+                onBlur={onBlurPageTitle}
+                onChange={onChangeListTitle}
+                rows={1}
+            />
+
             <div className="list-holder">
                 <div className="sticky-holder--add-button">
                     <div className="add-button" onClick={onClickAddTodoItem}></div>

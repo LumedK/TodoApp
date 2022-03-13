@@ -65,6 +65,20 @@
     flex: 1 1 auto;
 }
 
+.text-input {
+    flex: 0 0 auto;
+    box-sizing: border-box;
+    background: transparent;
+    padding: 3px;
+    resize: none;
+    overflow: visible;
+    height: max-content;
+    border: none;
+    border-bottom: var(--font-color-second) solid 1px;
+}
+.text-input:focus {
+    outline: none;
+}
 /* login-page */
 .login-page {
     display: flex;
@@ -209,9 +223,9 @@
 }
 .page__title {
     font-weight: 500;
-    font-size: 24px;
+    font-size: 18px;
     color: var(--font-color-basic);
-    margin-bottom: 25px;
+    margin-bottom: 10px;
 }
 .list-holder {
     width: 100%;

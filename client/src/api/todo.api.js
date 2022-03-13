@@ -63,7 +63,7 @@ async function updateTodoList(userID, todoListID = undefined, todoList = {}) {
         todoList.title = todoList.title || oldTodoList.title
         todoList.version = nextVersion(oldTodoList.version)
     } else {
-        todoList.title = todoList.title || 'Enter the name of the todo list ...'
+        todoList.title = todoList.title || ''
         todoList.version = nextVersion()
     }
     return await clientDB.todoList.put(todoList)
